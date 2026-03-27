@@ -7,7 +7,7 @@ from django.conf import settings
 from .models import Product, Cart
 
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 import os, random
 import qrcode
 import base64
@@ -130,7 +130,12 @@ def recommend_products(request, product_id):
         df_encoded
     ], axis=1)
 
-    similarity = cosine_similarity(df_features)
+    # Compute cosine similarity without scikit-learn to keep deps light
+    features = df_features.to_numpy(dtype=float)
+    norms = np.linalg.norm(features, axis=1, keepdims=True)
+    norms = np.clip(norms, 1e-12, None)  # avoid divide-by-zero
+    normalized = features / norms
+    similarity = normalized @ normalized.T
 
     target_index = df.index[df['id'] == product_id][0]
 
