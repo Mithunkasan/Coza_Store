@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>✅ Order Confirmed - Green Fashion</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --secondary-green: #40916c;
+            --accent-green: #52b788;
+            --light-green: #d8f3dc;
+            --dark-green: #1b4332;
+            --success-bg: #e8f5e9;
+            --card-shadow: 0 20px 60px rgba(45, 106, 79, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        /* Confirmation Card */
+        .confirmation-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            padding: 3rem 2.5rem;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confirmation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green), var(--secondary-green));
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Success Icon Animation */
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 3rem;
+            animation: pulse 0.6s ease, float 3s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(45, 106, 79, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Typography */
+        .confirmation-card h1 {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .confirmation-card .lead {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        .confirmation-card hr {
+            border: none;
+            border-top: 2px dashed var(--light-green);
+            margin: 1.5rem 0;
+            animation: fadeIn 0.8s ease 0.6s both;
+        }
+
+        /* Order Details */
+        .order-details {
+            background: var(--success-bg);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            animation: fadeIn 0.8s ease 0.8s both;
+        }
+
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .order-detail-row.total {
+            border-top: 2px solid var(--primary-green);
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--dark-green);
+        }
+
+        .order-detail-row.total .amount {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+        }
+
+        .order-id {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            color: var(--dark-green);
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            animation: fadeIn 0.8s ease 1s both;
+        }
+
+        .order-id i {
+            color: var(--accent-green);
+        }
+
+        /* Eco Message */
+        .eco-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--light-green);
+            color: var(--dark-green);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            animation: fadeIn 0.8s ease 1.2s both;
+        }
+
+        .eco-message i {
+            font-size: 1.2rem;
+            color: var(--accent-green);
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.8s ease 1.4s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45, 106, 79, 0.3);
+            color: white;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary-green);
+            border: 2px solid var(--secondary-green);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            animation: fadeIn 0.8s ease 1.6s both;
+        }
+
+        .trust-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        .trust-badge i {
+            font-size: 1.5rem;
+            color: var(--accent-green);
+        }
+
+        /* Confetti Animation (Optional) */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            animation: confetti-fall 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(600px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .confirmation-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .confirmation-card h1 {
+                font-size: 1.4rem;
+            }
+            
+            .success-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .trust-badges {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="confirmation-card">
+    
+    <!-- ✅ Animated Success Icon -->
+    <div class="success-icon">
+        <i class="bi bi-check-lg"></i>
+    </div>
+    
+    <!-- Heading -->
+    <h1>🎉 Order Placed Successfully!</h1>
+    
+    <!-- Message -->
+    <p class="lead">
+        Thank you for choosing sustainable fashion 🌿<br>
+        Your order has been confirmed and is being processed.
+    </p>
+    
+    <hr>
+    
+    <!-- Order ID -->
+    <div class="order-id">
+        <i class="bi bi-receipt"></i>
+        Order #{{ order_id|default:"GF-2025-001" }}
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="order-details">
+        <div class="order-detail-row">
+            <span>Subtotal</span>
+            <span>₹{{ subtotal|default:total|floatformat:0 }}</span>
+        </div>
+        <div class="order-detail-row">
+            <span>Shipping</span>
+            <span class="text-success">Free 🌿</span>
+        </div>
+        <div class="order-detail-row">
+            <span>Tax (GST)</span>
+            <span>₹0.00</span>
+        </div>
+        <div class="order-detail-row total">
+            <span>Total Paid</span>
+            <span class="amount">₹{{ total|floatformat:0 }}</span>
+        </div>
+    </div>
+    
+    <!-- Eco-Friendly Message -->
+    <div class="eco-message">
+        <i class="bi bi-leaf"></i>
+        Your order will be shipped in 100% recycled, plastic-free packaging
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="btn-group">
+        <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg">
+            <i class="bi bi-shop"></i> Continue Shopping
+        </a>
+        
+    </div>
+    
+    <!-- Trust Badges -->
+    <div class="trust-badges">
+        <div class="trust-badge">
+            <i class="bi bi-shield-check"></i>
+            <span>Secure Payment</span>
+        </div>
+        <div class="trust-badge">
+            <i class="bi bi-arrow-repeat"></i>
+            <span>Easy Returns</span>
+        </div>
+        <div class="trust-badge">
+            <i class="bi bi-leaf"></i>
+            <span>Eco-Friendly</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- Optional: Confetti Effect -->
+<script>
+// Create subtle confetti animation on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const card = document.querySelector('.confirmation-card');
+    const colors = ['#2d6a4f', '#40916c', '#52b788', '#d8f3dc', '#1b4332'];
+    
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.width = Math.random() * 8 + 4 + 'px';
+        confetti.style.height = confetti.style.width;
+        card.appendChild(confetti);
+    }
+    
+    // Auto-remove confetti after animation
+    setTimeout(() => {
+        document.querySelectorAll('.confetti').forEach(c => c.remove());
+    }, 3500);
+});
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

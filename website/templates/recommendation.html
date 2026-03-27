@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Recommended Products</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body { background-color: #f7f8fa; }
+    .card { border-radius: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+<div class="container py-5">
+<h2 class="text-center mb-4">Recommended for "{{ target.name }}"</h2>
+<div class="row g-4">
+    {% for product in recommended_products %}
+    <div class="col-md-4">
+        <div class="card h-100 text-center p-3">
+                {% if product.image_file %}
+                    <img src="{{ product.image_file.url }}" class="card-img-top" style="height:250px; object-fit:cover;">
+                {% elif product.image_url %}
+                    <img src="{{ product.image_url }}" class="card-img-top" style="height:250px; object-fit:cover;">
+                {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p>{{ product.brand }} - {{ product.category }}</p>
+                <p><strong>Price:</strong> ₹{{ product.price }}</p>
+                {% if product.condition == "Second-Hand" %}
+                    <span class="badge bg-success">Second-Hand ♻️ - Eco Friendly!</span>
+                {% else %}
+                    <span class="badge bg-warning">New 🌱 - Sustainable Choice</span>
+                {% endif %}
+                <span class="eco">Sustainability: {{ product.sustainability_score }}/10</span>
+                <span class="ethical">Ethical: {{ product.ethical_score }}/10</span>
+                <!-- Simulated ethical badges -->
+                {% if product.animal_friendly %}
+                    <span class="badge bg-info text-dark">Animal Friendly 🐾</span>
+                {% endif %}
+                {% if product.fair_labor %}
+                    <span class="badge bg-primary">Fair Labor ✅</span>
+                {% endif %}
+            </div>
+            <div class="card-footer bg-transparent">
+                <div class="card-footer bg-transparent d-flex justify-content-between">
+    <a href="{% url 'recommend_products' product.id %}" class="btn btn-success flex-fill me-2">View Similar 🌿</a>
+
+</div>
+
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">No recommendations available.</p>
+    {% endfor %}
+</div>
+</div>
+</body>
+</html>
