@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>🌿 Checkout - Green Fashion</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --secondary-green: #40916c;
+            --accent-green: #52b788;
+            --light-green: #d8f3dc;
+            --dark-green: #1b4332;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
+        }
+
+        .checkout-header {
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .checkout-container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .checkout-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-summary {
+            background: var(--light-green);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .summary-row.total {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+
+        .qr-box {
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed var(--accent-green);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .qr-box img {
+            width: 220px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="checkout-header">
+    <h2>🌿 Complete Your Order</h2>
+</header>
+
+<div class="checkout-container">
+
+{% if cart_items %}
+
+<div class="checkout-card">
+    <h4>Order Summary</h4>
+
+    {% for item in cart_items %}
+        <p>{{ item.product.name }} × {{ item.quantity }} = ₹{{ item.subtotal }}</p>
+    {% endfor %}
+
+    <div class="order-summary">
+        <div class="summary-row total">
+            <span>Total</span>
+            <span>₹{{ total }}</span>
+        </div>
+    </div>
+
+    <!-- 🔥 ADVANCED QR PAYMENT -->
+    <!-- 🔥 QR PAYMENT SECTION -->
+<div class="qr-box">
+    <h5>📱 Scan & Pay</h5>
+    <p>Use Google Pay / PhonePe / Paytm</p>
+
+    <!-- ✅ YOUR CUSTOM QR IMAGE -->
+    <img src="{% static 'images/qrcode.jpeg' %}" alt="QR Code">
+
+    <!-- 🔁 OPTIONAL: Dynamic QR (backup if needed) -->
+    <!-- <img id="qrImage" alt="QR Code"> -->
+
+    <p><strong>Amount: ₹{{ total }}</strong></p>
+
+    <!-- 🚀 Direct UPI Button -->
+    <a id="upiLink" class="btn btn-success mb-3">
+        🚀 Pay Directly
+    </a>
+
+    <!-- Payment Form -->
+    <form method="POST" action="{% url 'place_order' %}">
+        {% csrf_token %}
+        
+        <input type="text" name="txn_id" class="form-control"
+               placeholder="Enter Transaction ID" required>
+
+        <br>
+
+        <button type="submit" class="btn btn-primary">
+            ✅ I Have Paid
+        </button>
+    </form>
+</div>
+
+{% else %}
+
+<h3>Your cart is empty</h3>
+
+{% endif %}
+
+</div>
+
+<!-- 🔥 QR GENERATION SCRIPT -->
+<script>
+    const upiID = "yourupi@bank";  // 🔥 CHANGE THIS
+    const name = "Green Fashion";
+    const amount = "{{ total }}";
+
+    const upiURL = `upi://pay?pa=${upiID}&pn=${name}&am=${amount}&cu=INR`;
+
+    // Generate QR using API
+    const qrAPI = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiURL)}`;
+
+    document.getElementById("qrImage").src = qrAPI;
+    document.getElementById("upiLink").href = upiURL;
+</script>
+
+</body>
+</html>
