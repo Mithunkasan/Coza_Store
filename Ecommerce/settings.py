@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-js75fy2c4+i6hxd1w6(ad_0fv&&yfs^mx32#-cn@rxa$m#)l24
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Allow all hosts by default so the app works on hosted platforms.
+ALLOWED_HOSTS = ["*"]
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/products/'
 LOGOUT_REDIRECT_URL = '/login/'
@@ -118,6 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# Location where collectstatic will place compiled assets
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
